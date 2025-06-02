@@ -1,4 +1,4 @@
-// This is your Prisma schema file,
+// This is your Prisma schema file  -
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
@@ -24,8 +24,10 @@ model User {
 model Stream {
   id          String        @id @default(uuid())
   type        StreamType
+  url         String
+  extractedId String
   active      Boolean       @default(true)
-  upvotes     Upvote[ ]
+  upvotes     Upvote[]
   userId      String
   user        User          @relation(fields: [userId], references: [id])
 
@@ -36,8 +38,8 @@ model Upvote {
   userId      String
   streamId    String
   user        User          @relation(fields: [userId], references: [id])
-  streamId    Stream        @relation(fields: [streamId], references: [id])
-  @unique([userId, streamId ])
+  stream    Stream        @relation(fields: [streamId], references: [id])
+  @@unique([userId, streamId ])
 }
 
 
